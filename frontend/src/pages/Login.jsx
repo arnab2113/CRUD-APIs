@@ -43,19 +43,19 @@ const Login = () => {
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl border border-gray-200 shadow-md">
+      <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-8 rounded-xl border border-gray-200 dark:border-gray-800 shadow-md transition-colors">
         <div className="text-center">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sky-100 text-sky-600 mb-3">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 mb-3">
             <LogIn className="w-6 h-6" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900">Welcome back</h2>
-          <p className="mt-1 text-sm text-gray-600">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome back</h2>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Sign in to manage your e-commerce products
           </p>
         </div>
 
         {successMsg && (
-          <div className="bg-green-50 border border-green-200 text-green-700 text-sm p-3 rounded">
+          <div className="bg-green-50 dark:bg-green-950/50 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-300 text-sm p-3 rounded">
             {successMsg}
           </div>
         )}
@@ -64,7 +64,7 @@ const Login = () => {
 
         <form className="mt-6 space-y-5" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Email Address
             </label>
             <input
@@ -74,12 +74,12 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
             />
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Password
             </label>
             <input
@@ -89,7 +89,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
             />
           </div>
 
@@ -102,10 +102,10 @@ const Login = () => {
           </button>
         </form>
 
-        <div className="text-center pt-4 border-t border-gray-100">
-          <p className="text-sm text-gray-600">
+        <div className="text-center pt-4 border-t border-gray-100 dark:border-gray-800">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
             Don't have an account?{' '}
-            <Link to="/register" className="font-semibold text-sky-600 hover:text-sky-500">
+            <Link to="/register" className="font-semibold text-sky-600 dark:text-sky-400 hover:underline">
               Register now
             </Link>
           </p>

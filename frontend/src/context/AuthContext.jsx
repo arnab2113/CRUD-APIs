@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const logout = useCallback(async () => {
     try {
@@ -19,29 +19,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const initializeAuth = useCallback(async () => {
-    try {
-      setLoading(true);
-      // Attempt silent refresh via HTTP-only refresh token cookie
-      const refreshRes = await authService.refreshToken();
-      if (refreshRes.success && refreshRes.data?.accessToken) {
-        setAccessToken(refreshRes.data.accessToken);
-        const meRes = await authService.getMe();
-        if (meRes.success && meRes.data?.user) {
-          setUser(meRes.data.user);
-        }
-      }
-    } catch (err) {
-      // User is not authenticated or refresh token expired
-      setAccessToken(null);
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
-    initializeAuth();
+    // Ensure user is logged out by default on fresh application start
+    setAccessToken(null);
+    setUser(null);
 
     const handleUnauthorized = () => {
       setAccessToken(null);
@@ -52,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     return () => {
       window.removeEventListener('auth:unauthorized', handleUnauthorized);
     };
-  }, [initializeAuth]);
+  }, []);
 
   const login = async (credentials) => {
     const res = await authService.login(credentials);
@@ -76,7 +57,6 @@ export const AuthProvider = ({ children }) => {
         login,
         register,
         logout,
-        initializeAuth,
       }}
     >
       {children}

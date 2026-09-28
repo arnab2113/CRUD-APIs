@@ -5,9 +5,9 @@ const ErrorMessage = ({ message, errors = [] }) => {
   if (!message && (!errors || errors.length === 0)) return null;
 
   return (
-    <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded text-red-700 text-sm my-3 shadow-sm">
+    <div className="bg-red-50 dark:bg-red-950/40 border-l-4 border-red-500 p-4 rounded text-red-700 dark:text-red-300 text-sm my-3 shadow-sm transition-colors">
       <div className="flex items-start">
-        <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 text-red-500 mt-0.5" />
+        <AlertCircle className="w-5 h-5 mr-2 flex-shrink-0 text-red-500 dark:text-red-400 mt-0.5" />
         <div>
           {message && <p className="font-semibold">{message}</p>}
           {errors && errors.length > 0 && (

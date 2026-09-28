@@ -84,8 +84,8 @@ const Products = () => {
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 tracking-tight">Product Catalog</h1>
-          <p className="mt-1 text-sm text-gray-600">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Product Catalog</h1>
+          <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
             Browse and manage high quality e-commerce products
           </p>
         </div>
@@ -102,28 +102,28 @@ const Products = () => {
       </div>
 
       {/* Filter and Search Controls */}
-      <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-8">
+      <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm mb-8 transition-colors">
         <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
             <input
               type="text"
               placeholder="Search products by name or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+              className="w-full pl-9 pr-4 py-2 text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
             />
           </div>
 
           <div className="relative w-full sm:w-56">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
             <select
               value={selectedCategory}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
                 setPage(1);
               }}
-              className="w-full pl-9 pr-8 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-white"
+              className="w-full pl-9 pr-8 py-2 text-sm border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 bg-white dark:bg-gray-800"
             >
               {CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -135,7 +135,7 @@ const Products = () => {
 
           <button
             type="submit"
-            className="px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 bg-gray-900 dark:bg-sky-600 text-white text-sm font-medium rounded-lg hover:bg-gray-800 dark:hover:bg-sky-700 transition-colors"
           >
             Search
           </button>
@@ -148,10 +148,10 @@ const Products = () => {
       {loading ? (
         <LoadingSpinner />
       ) : products.length === 0 ? (
-        <div className="bg-white rounded-xl border border-dashed border-gray-300 p-12 text-center my-8">
-          <ShoppingBag className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-          <h3 className="text-lg font-bold text-gray-900 mb-1">No products found</h3>
-          <p className="text-sm text-gray-500 mb-6 max-w-sm mx-auto">
+        <div className="bg-white dark:bg-gray-900 rounded-xl border border-dashed border-gray-300 dark:border-gray-800 p-12 text-center my-8 transition-colors">
+          <ShoppingBag className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-3" />
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">No products found</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6 max-w-sm mx-auto">
             {searchQuery || selectedCategory !== 'All Categories'
               ? 'Try changing your search query or category filter.'
               : 'There are no products listed yet. Be the first to add one!'}

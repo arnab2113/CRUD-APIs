@@ -82,12 +82,12 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-5">
+    <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm space-y-5 transition-colors">
       <ErrorMessage message={apiError} errors={errors} />
 
       {/* Product Name */}
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Product Name <span className="text-red-500">*</span>
         </label>
         <input
@@ -99,13 +99,13 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
           required
           maxLength={100}
           placeholder="e.g. Wireless Noise-Canceling Headphones"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
         />
       </div>
 
       {/* Description */}
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+        <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Description <span className="text-red-500">*</span>
         </label>
         <textarea
@@ -117,14 +117,14 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
           rows={4}
           maxLength={1000}
           placeholder="Provide details about features, specifications..."
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
+          className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
         />
       </div>
 
       {/* Price & Stock Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Price (₹) <span className="text-red-500">*</span>
           </label>
           <input
@@ -137,12 +137,12 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
             min="0"
             step="0.01"
             placeholder="2999"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
           />
         </div>
 
         <div>
-          <label htmlFor="stock" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="stock" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Stock Quantity <span className="text-red-500">*</span>
           </label>
           <input
@@ -155,7 +155,7 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
             min="0"
             step="1"
             placeholder="10"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
           />
         </div>
       </div>
@@ -163,7 +163,7 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
       {/* Category & Image URL Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Category <span className="text-red-500">*</span>
           </label>
           <select
@@ -171,7 +171,7 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm bg-white"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm bg-white"
           >
             {CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>
@@ -182,7 +182,7 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
         </div>
 
         <div>
-          <label htmlFor="image" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Image URL (Optional)
           </label>
           <input
@@ -192,7 +192,7 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
             value={formData.image}
             onChange={handleChange}
             placeholder="https://images.unsplash.com/..."
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-white rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 text-sm"
           />
         </div>
       </div>

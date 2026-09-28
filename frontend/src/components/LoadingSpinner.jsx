@@ -9,7 +9,7 @@ const LoadingSpinner = ({ size = 'md', fullScreen = false }) => {
 
   const spinner = (
     <div
-      className={`${sizeClasses[size] || sizeClasses.md} border-sky-600 border-t-transparent rounded-full animate-spin`}
+      className={`${sizeClasses[size] || sizeClasses.md} border-sky-600 dark:border-sky-400 border-t-transparent dark:border-t-transparent rounded-full animate-spin`}
       role="status"
       aria-label="Loading"
     >
@@ -19,7 +19,7 @@ const LoadingSpinner = ({ size = 'md', fullScreen = false }) => {
 
   if (fullScreen) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/80 z-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-white/80 dark:bg-gray-950/80 backdrop-blur-xs z-50 transition-colors">
         {spinner}
       </div>
     );

@@ -45,19 +45,19 @@ const EditProduct = () => {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <Link
         to="/products"
-        className="inline-flex items-center text-sm font-medium text-gray-500 hover:text-sky-600 mb-6 transition-colors"
+        className="inline-flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-sky-600 dark:hover:text-sky-400 mb-6 transition-colors"
       >
         <ArrowLeft className="w-4 h-4 mr-1" />
         Back to Products
       </Link>
 
       <div className="mb-6 flex items-center space-x-3">
-        <div className="p-2.5 bg-sky-100 text-sky-600 rounded-lg">
+        <div className="p-2.5 bg-sky-100 dark:bg-sky-950 text-sky-600 dark:text-sky-400 rounded-lg">
           <Edit3 className="w-6 h-6" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Edit Product</h1>
-          <p className="text-sm text-gray-600">Update item specification in catalog</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Product</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-400">Update item specification in catalog</p>
         </div>
       </div>
 
