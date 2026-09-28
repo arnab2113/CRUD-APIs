@@ -16,10 +16,25 @@ const app = express();
 // Security Headers
 app.use(helmet());
 
-// CORS Configuration
+// Dynamic CORS Configuration
 app.use(
   cors({
-    origin: env.clientUrl,
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g., mobile apps, Postman, server-to-server)
+      if (!origin) return callback(null, true);
+
+      // Explicitly allow configured CLIENT_URL, local dev origins, and all Vercel deployments
+      if (
+        origin === env.clientUrl ||
+        origin.startsWith('http://localhost') ||
+        origin.endsWith('.vercel.app')
+      ) {
+        return callback(null, true);
+      }
+
+      // Fallback: allow origin for production deployment convenience
+      return callback(null, true);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
