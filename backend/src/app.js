@@ -13,8 +13,13 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
+// Trust reverse proxies (Vercel, Render, Heroku) for accurate IP rate limiting
+app.set('trust proxy', 1);
+
 // Security Headers
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
 
 // Dynamic CORS Configuration
 app.use(
