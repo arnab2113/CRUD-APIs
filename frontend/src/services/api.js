@@ -1,6 +1,14 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || '/api';
+const getRawApiUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  return 'http://localhost:5000/api';
+};
+
+// Normalize API_URL: strip trailing slashes for clean concatenation
+const API_URL = getRawApiUrl().replace(/\/+$/, '');
 
 let memoryAccessToken = null;
 let isRefreshing = false;
@@ -50,9 +58,9 @@ api.interceptors.response.use(
 
     // Avoid infinite refresh loops on login/register/refresh endpoints
     const isAuthRequest =
-      originalRequest.url.includes('/auth/login') ||
-      originalRequest.url.includes('/auth/register') ||
-      originalRequest.url.includes('/auth/refresh-token');
+      originalRequest.url?.includes('/auth/login') ||
+      originalRequest.url?.includes('/auth/register') ||
+      originalRequest.url?.includes('/auth/refresh-token');
 
     if (error.response?.status === 401 && !originalRequest._retry && !isAuthRequest) {
       if (isRefreshing) {

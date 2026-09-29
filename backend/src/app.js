@@ -13,32 +13,39 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-// Trust reverse proxies (Vercel, Render, Heroku) for accurate IP rate limiting
+// Trust reverse proxy headers (Render, Vercel) for accurate client IP rate limiting
 app.set('trust proxy', 1);
 
 // Security Headers
-app.use(helmet({
-  crossOriginResourcePolicy: false,
-}));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 
-// Dynamic CORS Configuration
+// Dynamic, Secure CORS Configuration
+const getCleanClientUrl = () => (env.clientUrl || '').replace(/\/+$/, '');
+
+const isOriginAllowed = (origin) => {
+  if (!origin) return true; // Allow non-browser requests (Postman, curl, server-to-server)
+
+  const cleanOrigin = origin.replace(/\/+$/, '');
+  const cleanClientUrl = getCleanClientUrl();
+
+  if (cleanClientUrl && cleanOrigin === cleanClientUrl) return true;
+  if (cleanOrigin.startsWith('http://localhost:')) return true;
+  if (cleanOrigin.endsWith('.vercel.app')) return true;
+
+  return false;
+};
+
 app.use(
   cors({
     origin: (origin, callback) => {
-      // Allow requests with no origin (e.g., mobile apps, Postman, server-to-server)
-      if (!origin) return callback(null, true);
-
-      // Explicitly allow configured CLIENT_URL, local dev origins, and all Vercel deployments
-      if (
-        origin === env.clientUrl ||
-        origin.startsWith('http://localhost') ||
-        origin.endsWith('.vercel.app')
-      ) {
-        return callback(null, true);
+      if (isOriginAllowed(origin)) {
+        return callback(null, origin || true);
       }
-
-      // Fallback: allow origin for production deployment convenience
-      return callback(null, true);
+      return callback(new Error(`CORS rejection: Origin ${origin} not allowed`));
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
