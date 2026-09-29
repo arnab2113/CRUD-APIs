@@ -1,10 +1,6 @@
 const { validationResult } = require('express-validator');
 const { sendError } = require('../utils/apiResponse');
 
-/**
- * Express middleware to validate incoming request data using express-validator.
- * Returns HTTP 400 Bad Request with field-level errors if validation fails.
- */
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

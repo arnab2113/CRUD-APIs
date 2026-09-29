@@ -13,14 +13,12 @@ import EditProduct from './pages/EditProduct';
 import Profile from './pages/Profile';
 import LoadingSpinner from './components/LoadingSpinner';
 
-// Helper component for default root redirect: Unauthenticated users are sent to /register
 const RootRedirect = () => {
   const { isAuthenticated, loading } = useAuth();
   if (loading) return <LoadingSpinner fullScreen />;
   return isAuthenticated ? <Navigate to="/products" replace /> : <Navigate to="/register" replace />;
 };
 
-// Helper component for public auth routes (prevents logged in users from viewing register/login)
 const PublicAuthRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
   if (loading) return <LoadingSpinner fullScreen />;
@@ -36,10 +34,8 @@ function App() {
             <Navbar />
             <main className="flex-1">
               <Routes>
-                {/* Default Root Redirect: Unauthenticated users go to /register first */}
                 <Route path="/" element={<RootRedirect />} />
 
-                {/* Public Auth Routes */}
                 <Route
                   path="/register"
                   element={
@@ -57,7 +53,6 @@ function App() {
                   }
                 />
 
-                {/* Protected App Routes - Require Register & Login First */}
                 <Route
                   path="/products"
                   element={
@@ -91,7 +86,6 @@ function App() {
                   }
                 />
 
-                {/* Fallback Route */}
                 <Route path="*" element={<RootRedirect />} />
               </Routes>
             </main>

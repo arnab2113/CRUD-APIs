@@ -1,11 +1,6 @@
 const Product = require('../models/Product');
 const { sendSuccess, sendError } = require('../utils/apiResponse');
 
-/**
- * Create a new Product
- * POST /api/products
- * Protected
- */
 const createProduct = async (req, res, next) => {
   try {
     const { name, description, price, stock, category, image } = req.body;
@@ -33,11 +28,6 @@ const createProduct = async (req, res, next) => {
   }
 };
 
-/**
- * Get all Products (Paginated & Filtered)
- * GET /api/products
- * Public
- */
 const getProducts = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
@@ -84,11 +74,6 @@ const getProducts = async (req, res, next) => {
   }
 };
 
-/**
- * Get Single Product by ID
- * GET /api/products/:id
- * Public
- */
 const getProductById = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id).populate(
@@ -106,11 +91,6 @@ const getProductById = async (req, res, next) => {
   }
 };
 
-/**
- * Update Product
- * PUT /api/products/:id
- * Protected (Ownership required)
- */
 const updateProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -119,12 +99,10 @@ const updateProduct = async (req, res, next) => {
       return sendError(res, 404, 'Product not found');
     }
 
-    // Authorization check: Verify authenticated user is the owner
     if (product.createdBy.toString() !== req.user.userId.toString()) {
       return sendError(res, 403, 'Forbidden. You are not authorized to update this product.');
     }
 
-    // Extract allowed fields only to prevent unexpected state updates
     const { name, description, price, stock, category, image } = req.body;
 
     if (name !== undefined) product.name = name;
@@ -149,11 +127,6 @@ const updateProduct = async (req, res, next) => {
   }
 };
 
-/**
- * Delete Product
- * DELETE /api/products/:id
- * Protected (Ownership required)
- */
 const deleteProduct = async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -162,7 +135,6 @@ const deleteProduct = async (req, res, next) => {
       return sendError(res, 404, 'Product not found');
     }
 
-    // Authorization check: Verify authenticated user is the owner
     if (product.createdBy.toString() !== req.user.userId.toString()) {
       return sendError(res, 403, 'Forbidden. You are not authorized to delete this product.');
     }

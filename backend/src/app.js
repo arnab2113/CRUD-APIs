@@ -13,21 +13,18 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-// Trust reverse proxy headers (Render, Vercel) for accurate client IP rate limiting
 app.set('trust proxy', 1);
 
-// Security Headers
 app.use(
   helmet({
     crossOriginResourcePolicy: false,
   })
 );
 
-// Dynamic, Secure CORS Configuration
 const getCleanClientUrl = () => (env.clientUrl || '').replace(/\/+$/, '');
 
 const isOriginAllowed = (origin) => {
-  if (!origin) return true; // Allow non-browser requests (Postman, curl, server-to-server)
+  if (!origin) return true;
 
   const cleanOrigin = origin.replace(/\/+$/, '');
   const cleanClientUrl = getCleanClientUrl();
@@ -53,15 +50,13 @@ app.use(
   })
 );
 
-// Body Parsers & Cookie Parser
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-// Rate Limiter for Auth Routes
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
   message: {
@@ -70,16 +65,13 @@ const authLimiter = rateLimit({
   },
 });
 
-// API Routes
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/products', productRoutes);
 
-// Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date() });
 });
 
-// 404 and Error Middlewares
 app.use(notFound);
 app.use(errorHandler);
 

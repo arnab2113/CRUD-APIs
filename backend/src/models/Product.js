@@ -58,7 +58,6 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-// Indexes for common queries
 productSchema.index({ category: 1 });
 productSchema.index({ name: 'text', description: 'text' });
 

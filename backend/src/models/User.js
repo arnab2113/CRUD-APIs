@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Password is required'],
       minlength: [8, 'Password must be at least 8 characters long'],
-      select: false, // Exclude password field from queries by default
+      select: false,
     },
   },
   {
@@ -39,7 +39,6 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Pre-save hook to hash password with bcrypt (minimum 10 salt rounds)
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     return next();
@@ -53,7 +52,6 @@ userSchema.pre('save', async function (next) {
   }
 });
 
-// Method to compare entered password with hashed password
 userSchema.methods.comparePassword = async function (candidatePassword) {
   return await bcrypt.compare(candidatePassword, this.password);
 };

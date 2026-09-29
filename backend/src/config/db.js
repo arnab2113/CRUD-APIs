@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const env = require('./env');
 
 const connectDB = async () => {
-  // Reuse existing database connection if already connected (for serverless execution)
   if (mongoose.connection.readyState >= 1) {
     return mongoose.connection;
   }

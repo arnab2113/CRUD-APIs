@@ -36,7 +36,6 @@ const refreshTokenSchema = new mongoose.Schema(
   }
 );
 
-// Method to check if the token is active
 refreshTokenSchema.methods.isActive = function () {
   return !this.revokedAt && new Date() < this.expiresAt;
 };

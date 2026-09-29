@@ -5,21 +5,15 @@ const { hashToken } = require('../utils/crypto');
 const { setRefreshTokenCookie, clearRefreshTokenCookie, REFRESH_TOKEN_COOKIE_NAME } = require('../utils/cookies');
 const { sendSuccess, sendError } = require('../utils/apiResponse');
 
-/**
- * Register User
- * POST /api/auth/register
- */
 const register = async (req, res, next) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return sendError(res, 409, 'An account with this email address already exists.');
     }
 
-    // Create user (password is automatically hashed via Mongoose pre-save hook)
     const user = await User.create({
       name,
       email,
@@ -44,33 +38,25 @@ const register = async (req, res, next) => {
   }
 };
 
-/**
- * Login User
- * POST /api/auth/login
- */
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    // Find user and explicitly select password field
     const user = await User.findOne({ email }).select('+password');
     if (!user) {
       return sendError(res, 401, 'Invalid email or password.');
     }
 
-    // Verify password
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return sendError(res, 401, 'Invalid email or password.');
     }
 
-    // Generate tokens
     const accessToken = generateAccessToken(user.id);
     const refreshToken = generateRefreshToken(user.id);
 
-    // Hash refresh token for server-side persistence
     const tokenHash = hashToken(refreshToken);
-    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
     await RefreshToken.create({
       userId: user.id,
@@ -80,7 +66,6 @@ const login = async (req, res, next) => {
       userAgent: req.headers['user-agent'] || '',
     });
 
-    // Set Refresh Token in HTTP-Only cookie
     setRefreshTokenCookie(res, refreshToken);
 
     return sendSuccess(
@@ -101,10 +86,6 @@ const login = async (req, res, next) => {
   }
 };
 
-/**
- * Refresh Access Token
- * POST /api/auth/refresh-token
- */
 const refreshToken = async (req, res, next) => {
   try {
     const rawRefreshToken = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
@@ -133,10 +114,8 @@ const refreshToken = async (req, res, next) => {
       return sendError(res, 401, 'Refresh token is invalid or revoked. Please log in again.');
     }
 
-    // Generate new access token
     const newAccessToken = generateAccessToken(decoded.userId);
 
-    // Optional Token Rotation: Revoke old token and issue new refresh token
     storedToken.revokedAt = new Date();
     await storedToken.save();
 
@@ -167,10 +146,6 @@ const refreshToken = async (req, res, next) => {
   }
 };
 
-/**
- * Logout User
- * POST /api/auth/logout
- */
 const logout = async (req, res, next) => {
   try {
     const rawRefreshToken = req.cookies[REFRESH_TOKEN_COOKIE_NAME];
@@ -191,10 +166,6 @@ const logout = async (req, res, next) => {
   }
 };
 
-/**
- * Get Authenticated User Profile
- * GET /api/auth/me
- */
 const getMe = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.userId);

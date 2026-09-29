@@ -7,7 +7,6 @@ const getRawApiUrl = () => {
   return 'http://localhost:5000/api';
 };
 
-// Normalize API_URL: strip trailing slashes for clean concatenation
 const API_URL = getRawApiUrl().replace(/\/+$/, '');
 
 let memoryAccessToken = null;
@@ -39,7 +38,6 @@ const api = axios.create({
   },
 });
 
-// Request Interceptor: Attach Access Token
 api.interceptors.request.use(
   (config) => {
     if (memoryAccessToken) {
@@ -50,13 +48,11 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response Interceptor: Handle 401 and Token Refresh
 api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
 
-    // Avoid infinite refresh loops on login/register/refresh endpoints
     const isAuthRequest =
       originalRequest.url?.includes('/auth/login') ||
       originalRequest.url?.includes('/auth/register') ||
@@ -93,7 +89,6 @@ api.interceptors.response.use(
       } catch (refreshError) {
         processQueue(refreshError, null);
         setAccessToken(null);
-        // Dispatch custom event so AuthContext can handle logout & redirect
         window.dispatchEvent(new Event('auth:unauthorized'));
         return Promise.reject(refreshError);
       } finally {

@@ -25,7 +25,6 @@ const ProductCard = ({ product, onDelete }) => {
 
   return (
     <div className="bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col h-full">
-      {/* Product Image */}
       <div className="relative h-48 bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
         {product.image ? (
           <img
@@ -44,14 +43,12 @@ const ProductCard = ({ product, onDelete }) => {
           </div>
         )}
 
-        {/* Category Badge */}
         <span className="absolute top-3 left-3 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm text-sky-700 dark:text-sky-400 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1 border border-gray-100 dark:border-gray-800">
           <Tag className="w-3 h-3" />
           {product.category}
         </span>
       </div>
 
-      {/* Product Details */}
       <div className="p-4 flex-1 flex flex-col justify-between">
         <div>
           <h3 className="font-bold text-gray-900 dark:text-white text-lg line-clamp-1 mb-1" title={product.name}>
@@ -81,7 +78,6 @@ const ProductCard = ({ product, onDelete }) => {
             </div>
           </div>
 
-          {/* Owner Info & Actions */}
           <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 pt-2 border-t border-gray-100 dark:border-gray-800">
             <span>
               By: {typeof product.createdBy === 'object' ? product.createdBy.name : 'User'}
@@ -110,7 +106,6 @@ const ProductCard = ({ product, onDelete }) => {
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-6 max-w-sm w-full shadow-xl">

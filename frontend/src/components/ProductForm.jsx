@@ -50,7 +50,6 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
     setErrors([]);
     setApiError('');
 
-    // Client-side quick checks
     const clientErrors = [];
     if (!formData.name.trim()) clientErrors.push({ field: 'name', message: 'Name is required' });
     if (!formData.description.trim()) clientErrors.push({ field: 'description', message: 'Description is required' });
@@ -85,7 +84,6 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
     <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-900 p-6 rounded-lg border border-gray-200 dark:border-gray-800 shadow-sm space-y-5 transition-colors">
       <ErrorMessage message={apiError} errors={errors} />
 
-      {/* Product Name */}
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Product Name <span className="text-red-500">*</span>
@@ -103,7 +101,6 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
         />
       </div>
 
-      {/* Description */}
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Description <span className="text-red-500">*</span>
@@ -121,7 +118,6 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
         />
       </div>
 
-      {/* Price & Stock Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="price" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -160,7 +156,6 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
         </div>
       </div>
 
-      {/* Category & Image URL Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label htmlFor="category" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -197,7 +192,6 @@ const ProductForm = ({ initialData, onSubmit, isEditing = false }) => {
         </div>
       </div>
 
-      {/* Form Submit Buttons */}
       <div className="pt-3 flex justify-end space-x-3">
         <button
           type="submit"

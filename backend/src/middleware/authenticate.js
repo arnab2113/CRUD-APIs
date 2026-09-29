@@ -1,11 +1,6 @@
 const { verifyAccessToken } = require('../utils/jwt');
 const { sendError } = require('../utils/apiResponse');
 
-/**
- * Authentication Middleware
- * Expects header: Authorization: Bearer <accessToken>
- * Verifies JWT token and attaches req.user
- */
 const authenticate = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;

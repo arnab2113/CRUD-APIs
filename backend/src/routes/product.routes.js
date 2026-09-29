@@ -17,11 +17,9 @@ const authenticate = require('../middleware/authenticate');
 
 const router = express.Router();
 
-// Public Routes
 router.get('/', paginationQueryValidation, validate, getProducts);
 router.get('/:id', productIdParamValidation, validate, getProductById);
 
-// Protected Routes
 router.post('/', authenticate, createProductValidation, validate, createProduct);
 router.put('/:id', authenticate, updateProductValidation, validate, updateProduct);
 router.delete('/:id', authenticate, productIdParamValidation, validate, deleteProduct);

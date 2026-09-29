@@ -18,7 +18,6 @@ const Navbar = () => {
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40 shadow-sm transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          {/* Logo & Main Nav */}
           <div className="flex items-center space-x-8">
             <Link to={isAuthenticated ? "/products" : "/register"} className="flex items-center space-x-2 text-sky-600 dark:text-sky-400 font-bold text-xl">
               <ShoppingBag className="w-6 h-6" />
@@ -35,9 +34,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Right Action Buttons */}
           <div className="flex items-center space-x-3">
-            {/* Dark / Light Mode Pill Toggle Switch */}
             <button
               onClick={toggleTheme}
               type="button"

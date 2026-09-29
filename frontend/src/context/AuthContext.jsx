@@ -20,7 +20,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    // Ensure user is logged out by default on fresh application start
     setAccessToken(null);
     setUser(null);
 

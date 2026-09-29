@@ -81,7 +81,6 @@ const Products = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Product Catalog</h1>
@@ -101,7 +100,6 @@ const Products = () => {
         )}
       </div>
 
-      {/* Filter and Search Controls */}
       <div className="bg-white dark:bg-gray-900 p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm mb-8 transition-colors">
         <form onSubmit={handleSearchSubmit} className="flex flex-col sm:flex-row gap-3">
           <div className="relative flex-1">
@@ -144,7 +142,6 @@ const Products = () => {
 
       <ErrorMessage message={error} />
 
-      {/* Product Content State */}
       {loading ? (
         <LoadingSpinner />
       ) : products.length === 0 ? (
